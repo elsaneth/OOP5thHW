@@ -1,15 +1,17 @@
-import java.util.ArrayList;
+import Tooted.Juust;
+import Tooted.Kohupiim;
+import Tooted.Piim;
+import Tooted.Piimatoode;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HW5_ex2 {
     public static void main(String[] args) {
-        Juust juust1 = new Juust("Eesti Juust", 7.5);
+        Juust juust1 = new Juust("Eesti Tooted.Juust", 7.5);
         Juust juust2 = new Juust("Atleet", 6);
         Piim piim1 = new Piim("Alma", 0.65);
         Kohupiim kohupiim1 = new Kohupiim("Estover", 3);
-
 
         Map<Piimatoode, Double> piimatootedKogused = new HashMap<>();
         piimatootedKogused.put(juust1, 2.0);
@@ -17,27 +19,21 @@ public class HW5_ex2 {
         piimatootedKogused.put(piim1, 6.0);
         piimatootedKogused.put(kohupiim1, 1.0);
 
-        // Juustude kogumaht
         double juustudeKogumaht = 0;
-        for (Map.Entry<Piimatoode, Double> entry : piimatootedKogused.entrySet()) {
-            if (entry.getKey() instanceof Juust) {
-                juustudeKogumaht += entry.getValue();
-            }
-        }
-
-        // Piima kogumaht
         double piimaKogumaht = 0;
-        for (Map.Entry<Piimatoode, Double> entry : piimatootedKogused.entrySet()) {
-            if (entry.getKey() instanceof Piim) {
-                piimaKogumaht += entry.getValue();
-            }
-        }
-
-        // Kohupiima kogumaht
         double kohupiimaKogumaht = 0;
+
+        // Loop through the map once to compute total volumes for Tooted.Juust, Tooted.Piim, and Tooted.Kohupiim
         for (Map.Entry<Piimatoode, Double> entry : piimatootedKogused.entrySet()) {
-            if (entry.getKey() instanceof Piim) {
-                kohupiimaKogumaht += entry.getValue();
+            Piimatoode toode = entry.getKey();
+            double kogus = entry.getValue();
+
+            if (toode instanceof Juust) {
+                juustudeKogumaht += kogus;
+            } else if (toode instanceof Piim) {
+                piimaKogumaht += kogus;
+            } else if (toode instanceof Kohupiim) {
+                kohupiimaKogumaht += kogus;
             }
         }
 
@@ -47,5 +43,6 @@ public class HW5_ex2 {
         double kohupiim1Price = kohupiim1.getPrice(kohupiimaKogumaht, piimatootedKogused.get(kohupiim1));
 
         System.out.println("Juust1: " + juust1Price + " Juust2: " + juust2Price);
+        System.out.println("Piim1: " + piim1Price + " kohupiim1: " + kohupiim1Price);
     }
 }
