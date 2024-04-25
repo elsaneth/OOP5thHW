@@ -11,12 +11,12 @@ public class Juust extends Piimatoode {
     }
 
     public double getPrice(double koguKogus, double tooteKogus) {
-        double pricePerUnit = this.hind; // Get the original price per unit
-        double totalCost = pricePerUnit * tooteKogus; // Calculate the total cost without discount
+        double pricePerUnit = this.hind;
+        double totalCost = pricePerUnit * tooteKogus;
 
         if (koguKogus >= 3) {
-            // Apply 10% discount if the quantity is 3 or more
-            totalCost *= 0.9; // Apply discount to total cost
+            soodustus = true;
+            totalCost *= 0.9;
         }
 
         BigDecimal bd = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP);
