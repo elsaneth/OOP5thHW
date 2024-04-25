@@ -1,3 +1,5 @@
+package Tooted;
+
 public abstract class Piimatoode {
     String nimi;
     double hind;
@@ -8,5 +10,9 @@ public abstract class Piimatoode {
 
     public double getHind() {
         return hind;
+    }
+
+    public double getPrice(double kogus) {
+        return hind * kogus;
     }
 }

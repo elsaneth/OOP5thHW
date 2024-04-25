@@ -1,3 +1,10 @@
+package Tooted;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static java.lang.Math.round;
+
 public class Piim extends Piimatoode {
     String nimi;
     double hind;
@@ -8,7 +15,7 @@ public class Piim extends Piimatoode {
     }
 
     public double getPrice(double koguKogus, double tooteKogus) {
-        double pricePerUnit = getHind(); // Get the original price per unit
+        double pricePerUnit = this.hind; // Get the original price per unit
         double totalCost = pricePerUnit * tooteKogus; // Calculate the total cost without discount
 
         if (koguKogus >= 5) {
@@ -16,6 +23,7 @@ public class Piim extends Piimatoode {
             totalCost *= 0.9; // Apply discount to total cost
         }
 
-        return totalCost;
+        BigDecimal bd = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }
