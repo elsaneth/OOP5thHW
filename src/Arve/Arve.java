@@ -5,29 +5,35 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import Tooted.*;
 
 public class Arve {
     String tellija;
     Map<Piimatoode, Double> tootedKogused;
     int arveNr;
-    private static int jargmineArveNr = 1;
-    public String klient() {
-        return tellija;
-    }
+    private static final Random random = new Random();  // Random generator for unique numbers
 
-    public int leiaArveNr() {
-        return arveNr;
-    }
-
+    // Generate a unique 10-digit number
     private static int leiaJargmine() {
-        return jargmineArveNr++;
+        long min = 10000000L;
+        long max = 99999999L;
+        return (int) (min + (random.nextDouble() * (max - min)));
     }
 
     public Arve(String tellija) {
         this.tellija = tellija;
         this.tootedKogused = new HashMap<>();
-        this.arveNr = leiaJargmine();
+        this.arveNr = leiaJargmine();  // Assign unique 10-digit number
+    }
+
+    public long leiaArveNr() {
+        return arveNr;  // Return the unique 10-digit number
+    }
+
+    public String klient() {
+        return tellija;
     }
 
     public void lisa(Piimatoode toode, double kogus) {
@@ -88,7 +94,7 @@ public class Arve {
     }
 
     public void maksa() {
-        String filename = String.format("check_%s_%d.txt", tellija.toLowerCase(), arveNr);
+        String filename = String.format("check%d.txt", arveNr);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(String.format("Tellija: %s%n", tellija));
