@@ -1,8 +1,20 @@
+/**
+ * This class represents a person with a first name, last name, and birth year.
+ * It provides methods to get and set these attributes, as well as a custom string representation of the person.
+ */
 public class Person {
+    // Fields to store the first name, last name, and birth year of the person
     String firstName;
     String lastName;
     int birthYear;
 
+    /**
+     * Constructs a new Person with the specified first name, last name, and birth year.
+     *
+     * @param firstName The first name of the person.
+     * @param secondName The last name of the person.
+     * @param birthYear The year of birth of the person.
+     */
     public Person(String firstName, String secondName, int birthYear) {
         this.firstName = firstName;
         this.lastName = secondName;
@@ -33,8 +45,13 @@ public class Person {
         this.birthYear = birthYear;
     }
 
+    /**
+     * Returns a string representation of the person, including the first name and birth year.
+     *
+     * @return A string that represents the person.
+     */
     @Override
     public String toString() {
-        return "\n {Name: " + this.firstName + " " + this.lastName + ", birth year: " + this.birthYear + "}";
+        return "\n {Name: " + this.firstName + ", birth year: " + this.birthYear + "}";
     }
 }
