@@ -9,36 +9,73 @@ import java.util.Random;
 
 import Tooted.*;
 
+/**
+ * The `Arve` class represents an invoice system for managing dairy product orders.
+ * It supports adding products to an invoice, calculating the total cost, and generating a text file for the invoice.
+ */
 public class Arve {
+    // Fields to store the client name, product quantities, and invoice number
     String tellija;
     Map<Piimatoode, Double> tootedKogused;
     int arveNr;
     private static final Random random = new Random();
 
+    /**
+     * Generates a random invoice number between 10000000 and 99999999.
+     *
+     * @return A random invoice number.
+     */
     private static int leiaJargmine() {
         long min = 10000000L;
         long max = 99999999L;
         return (int) (min + (random.nextDouble() * (max - min)));
     }
 
+    /**
+     * Constructs an `Arve` (invoice) with the specified client name.
+     * Initializes an empty product-quantity map and assigns a random invoice number.
+     *
+     * @param tellija The client name for the invoice.
+     */
     public Arve(String tellija) {
         this.tellija = tellija;
         this.tootedKogused = new HashMap<>();
         this.arveNr = leiaJargmine();
     }
 
+    /**
+     * Returns the invoice number.
+     *
+     * @return The invoice number.
+     */
     public long leiaArveNr() {
         return arveNr;
     }
 
+    /**
+     * Returns the client name.
+     *
+     * @return The client name.
+     */
     public String klient() {
         return tellija;
     }
 
+    /**
+     * Adds a product with a specified quantity to the invoice.
+     *
+     * @param toode The product to add.
+     * @param kogus The quantity of the product.
+     */
     public void lisa(Piimatoode toode, double kogus) {
         tootedKogused.put(toode, kogus);
     }
 
+    /**
+     * Calculates the total quantity of cheese in the invoice.
+     *
+     * @return The total quantity of cheese.
+     */
     private double arvutaJuustudeKogumaht() {
         double kogumaht = 0;
         for (Map.Entry<Piimatoode, Double> entry : tootedKogused.entrySet()) {
@@ -69,6 +106,12 @@ public class Arve {
         return kogumaht;
     }
 
+    /**
+     * Calculates the total cost for the invoice, taking into account potential discounts for bulk orders.
+     * Discounts are applied based on the total quantity of different product types. (Calculated before)
+     *
+     * @return The total cost of the invoice.
+     */
     public double leiaKoguSumma() {
         double juustudeKogumaht = arvutaJuustudeKogumaht();
         double piimaKogumaht = arvutaPiimaKogumaht();
@@ -92,6 +135,10 @@ public class Arve {
         return koguhind; // Tagasta kogu arve hind
     }
 
+    /**
+     * Marks the invoice as paid by generating a text file containing the invoice details.
+     * This includes the client name, invoice number, product information, and total cost.
+     */
     public void maksa() {
         String filename = String.format("check%d.txt", arveNr);
 
