@@ -1,0 +1,12 @@
+Tellija: Uku
+Arve nr: 43068150
+--------------------------------------------------------------------------------------------
+Toode: Kitsepiim            Kogus: 1.50   l    Hind: 5.55
+Toode: Juust Gouda          Kogus: 0.20   kg   Hind: 2.92      
+Toode: Kohupiim Ricotta     Kogus: 2.50   kg   Hind: 9.00  (Soodustus 10%)     Täishind: 10.00
+Toode: Juust Grand          Kogus: 0.50   kg   Hind: 8.49  (Soodustus 10%)     Täishind: 8.50
+Toode: Juust Cheddar        Kogus: 0.10   kg   Hind: 1.49      
+Toode: Piim 2,5%            Kogus: 2.50   l    Hind: 3.25
+
+--------------------------------------------------------------------------------------------
+Kogu arve hind: 30.70 €
