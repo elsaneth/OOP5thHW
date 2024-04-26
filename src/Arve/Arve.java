@@ -13,9 +13,8 @@ public class Arve {
     String tellija;
     Map<Piimatoode, Double> tootedKogused;
     int arveNr;
-    private static final Random random = new Random();  // Random generator for unique numbers
+    private static final Random random = new Random();
 
-    // Generate a unique 10-digit number
     private static int leiaJargmine() {
         long min = 10000000L;
         long max = 99999999L;
@@ -25,11 +24,11 @@ public class Arve {
     public Arve(String tellija) {
         this.tellija = tellija;
         this.tootedKogused = new HashMap<>();
-        this.arveNr = leiaJargmine();  // Assign unique 10-digit number
+        this.arveNr = leiaJargmine();
     }
 
     public long leiaArveNr() {
-        return arveNr;  // Return the unique 10-digit number
+        return arveNr;
     }
 
     public String klient() {
@@ -98,8 +97,11 @@ public class Arve {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(String.format("Tellija: %s%n", tellija));
+            System.out.printf("\nTellija: %s%n%n", tellija);
             writer.write(String.format("Arve nr: %s%n", leiaArveNr()));
-            writer.write("----------------------------------------------------------------------------------------\n");
+            System.out.printf(String.format("Arve nr: %s%n", leiaArveNr()));
+            writer.write("--------------------------------------------------------------------------------------------\n");
+            System.out.println("--------------------------------------------------------------------------------------------\n");
 
             double arveKoguhind = leiaKoguSumma();
 
@@ -120,24 +122,34 @@ public class Arve {
                     if(toode instanceof Piim) {
                         writer.write(String.format("Toode: %-20s Kogus: %-6.2f l    Hind: %-5.2f (Soodustus 10%%)     Täishind: %.2f%n",
                                 toode.getNimi(), kogus, tooteHind, toode.getHind(kogus)));
+                        System.out.printf("Toode: %-20s Kogus: %-6.2f l    Hind: %-5.2f (Soodustus 10%%)     Täishind: %.2f%n",
+                                toode.getNimi(), kogus, tooteHind, toode.getHind(kogus));
                     } else {
                         writer.write(String.format("Toode: %-20s Kogus: %-6.2f kg   Hind: %-5.2f (Soodustus 10%%)     Täishind: %.2f%n",
                                 toode.getNimi(), kogus, tooteHind, toode.getHind(kogus)));
+                        System.out.printf("Toode: %-20s Kogus: %-6.2f kg   Hind: %-5.2f (Soodustus 10%%)     Täishind: %.2f%n",
+                                toode.getNimi(), kogus, tooteHind, toode.getHind(kogus));
                     }
                 } else {
                     if (toode instanceof Piim) {
                         writer.write(String.format("Toode: %-20s Kogus: %-6.2f l    Hind: %-10.2f%n",
                                 toode.getNimi(), kogus, tooteHind));
+                        System.out.printf("Toode: %-20s Kogus: %-6.2f l    Hind: %-10.2f%n",
+                                toode.getNimi(), kogus, tooteHind);
                     }
                     else {
                         writer.write(String.format("Toode: %-20s Kogus: %-6.2f kg   Hind: %-10.2f%n",
                                 toode.getNimi(), kogus, tooteHind));
+                        System.out.printf("Toode: %-20s Kogus: %-6.2f kg   Hind: %-10.2f%n",
+                                toode.getNimi(), kogus, tooteHind);
                     }
                 }
             }
 
-            writer.write("----------------------------------------------------------------------------------------\n");
-            writer.write(String.format("Kogu arve hind: %.2f%n", arveKoguhind));
+            writer.write("\n--------------------------------------------------------------------------------------------");
+            System.out.println("\n--------------------------------------------------------------------------------------------");
+            writer.write(String.format("Kogu arve hind: %.2f €", arveKoguhind));
+            System.out.printf("Kogu arve hind: %.2f €%n%n", arveKoguhind);
         } catch (IOException e) {
             e.printStackTrace();
         }
