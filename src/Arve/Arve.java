@@ -1,5 +1,8 @@
 package Arve;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import Tooted.*;
@@ -85,32 +88,53 @@ public class Arve {
     }
 
     public void maksa() {
-        System.out.println("Tellija: " + tellija);
-        System.out.println("Arve nr: " + leiaArveNr());
+        String filename = String.format("check_%s_%d.txt", tellija.toLowerCase(), arveNr);
 
-        double arveKoguhind = leiaKoguSumma();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(String.format("Tellija: %s%n", tellija));
+            writer.write(String.format("Arve nr: %s%n", leiaArveNr()));
+            writer.write("----------------------------------------------------------------------------------------\n");
 
+            double arveKoguhind = leiaKoguSumma();
 
-        for (Map.Entry<Piimatoode, Double> entry : tootedKogused.entrySet()) {
-            Piimatoode toode = entry.getKey();
-            double kogus = entry.getValue();
-            double tooteHind = 0;
+            for (Map.Entry<Piimatoode, Double> entry : tootedKogused.entrySet()) {
+                Piimatoode toode = entry.getKey();
+                double kogus = entry.getValue();
+                double tooteHind = 0;
 
-            if (toode instanceof Juust) {
-                tooteHind = ((Juust) toode).getPrice(arvutaJuustudeKogumaht(), kogus);
-            } else if (toode instanceof Piim) {
-                tooteHind = ((Piim) toode).getPrice(arvutaPiimaKogumaht(), kogus);
-            } else if (toode instanceof Kohupiim) {
-                tooteHind = ((Kohupiim) toode).getPrice(arvutaKohupiimaKogumaht(), kogus);
+                if (toode instanceof Juust) {
+                    tooteHind = ((Juust) toode).getPrice(arvutaJuustudeKogumaht(), kogus);
+                } else if (toode instanceof Piim) {
+                    tooteHind = ((Piim) toode).getPrice(arvutaPiimaKogumaht(), kogus);
+                } else if (toode instanceof Kohupiim) {
+                    tooteHind = ((Kohupiim) toode).getPrice(arvutaKohupiimaKogumaht(), kogus);
+                }
+
+                if (tooteHind != toode.getHind(kogus)) {
+                    if(toode instanceof Piim) {
+                        writer.write(String.format("Toode: %-20s Kogus: %-6.2f l    Hind: %-5.2f (Soodustus 10%%)     Täishind: %.2f%n",
+                                toode.getNimi(), kogus, tooteHind, toode.getHind(kogus)));
+                    } else {
+                        writer.write(String.format("Toode: %-20s Kogus: %-6.2f kg   Hind: %-5.2f (Soodustus 10%%)     Täishind: %.2f%n",
+                                toode.getNimi(), kogus, tooteHind, toode.getHind(kogus)));
+                    }
+                } else {
+                    if (toode instanceof Piim) {
+                        writer.write(String.format("Toode: %-20s Kogus: %-6.2f l    Hind: %-10.2f%n",
+                                toode.getNimi(), kogus, tooteHind));
+                    }
+                    else {
+                        writer.write(String.format("Toode: %-20s Kogus: %-6.2f kg   Hind: %-10.2f%n",
+                                toode.getNimi(), kogus, tooteHind));
+                    }
+                }
             }
-            if (toode.isSoodustus()) {
-                System.out.println("Toode: " + toode.getNimi() + ", Kogus: " + kogus + ", Hind kokku: " + tooteHind + " (Soodustus 10%)"
-                + " Täishind: " + toode.getHind(kogus));
-            } else {
-                System.out.println("Toode: " + toode.getNimi() + ", Kogus: " + kogus + ", Hind kokku: " + tooteHind);
-            }
+
+            writer.write("----------------------------------------------------------------------------------------\n");
+            writer.write(String.format("Kogu arve hind: %.2f%n", arveKoguhind));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("Kogu arve hind: " + arveKoguhind);
     }
 }
 

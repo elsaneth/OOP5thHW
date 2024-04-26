@@ -15,7 +15,6 @@ public class Juust extends Piimatoode {
         double totalCost = pricePerUnit * tooteKogus;
 
         if (koguKogus >= 3) {
-            soodustus = true;
             totalCost *= 0.9;
         }
 

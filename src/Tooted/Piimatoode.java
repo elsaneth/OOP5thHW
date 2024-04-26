@@ -7,12 +7,6 @@ public abstract class Piimatoode {
     String nimi;
     double hind;
 
-    public boolean isSoodustus() {
-        return soodustus;
-    }
-
-    boolean soodustus = false;
-
     public String getNimi() {
         return nimi;
     }

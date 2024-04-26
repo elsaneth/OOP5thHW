@@ -20,7 +20,7 @@ public class HW5_ex2 {
         arve2.lisa(juust1, 2.0);
         arve2.lisa(juust2, 2.0);
         arve2.lisa(piim1, 6);
-        arve2.lisa(kohupiim1, 2.0);
+        arve2.lisa(kohupiim1, 1.0);
 
 
         arve1.maksa();

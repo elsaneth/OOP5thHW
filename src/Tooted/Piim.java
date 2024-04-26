@@ -16,7 +16,6 @@ public class Piim extends Piimatoode {
         double totalCost = pricePerUnit * tooteKogus;
 
         if (koguKogus >= 5) {
-            soodustus = true;
             totalCost *= 0.9;
         }
 

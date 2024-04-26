@@ -14,7 +14,6 @@ public class Kohupiim extends Piimatoode {
         double totalCost = pricePerUnit * tooteKogus;
 
         if (koguKogus >= 2) {
-            soodustus = true;
             totalCost *= 0.9;
         }
 
