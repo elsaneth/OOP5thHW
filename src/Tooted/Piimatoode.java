@@ -21,6 +21,8 @@ public abstract class Piimatoode {
         return nimi;
     }
 
+    public double getHind2() { return hind; }
+
     /**
      * Calculates the price of the dairy product for a given quantity.
      * The price is rounded to two decimal places using the rounding mode HALF_UP.

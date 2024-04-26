@@ -1,6 +1,7 @@
 package Arve;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -140,7 +141,13 @@ public class Arve {
      * This includes the client name, invoice number, product information, and total cost.
      */
     public void maksa() {
-        String filename = String.format("check%d.txt", arveNr);
+        File folder = new File("arved");  // Create a File object for the folder
+        if (!folder.exists()) {  // Check if the folder doesn't exist
+            folder.mkdir();  // Create the folder
+        }
+
+        // Create the full path for the file within the "arved" folder
+        String filename = String.format("arved/check%d.txt", arveNr);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(String.format("Tellija: %s%n", tellija));
@@ -193,7 +200,7 @@ public class Arve {
                 }
             }
 
-            writer.write("\n--------------------------------------------------------------------------------------------");
+            writer.write("\n--------------------------------------------------------------------------------------------\n");
             System.out.println("\n--------------------------------------------------------------------------------------------");
             writer.write(String.format("Kogu arve hind: %.2f €", arveKoguhind));
             System.out.printf("Kogu arve hind: %.2f €%n%n", arveKoguhind);
